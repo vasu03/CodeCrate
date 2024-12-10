@@ -9,13 +9,6 @@ import { getFromFavouriteService } from "../services/favouriteSnippets/getFromFa
 import { addToFavouriteService } from "../services/favouriteSnippets/addToFavouriteService.js";
 import { deleteFromFavouriteService } from "../services/favouriteSnippets/deleteFromFavouriteService.js";
 
-// Importing custom middlewares
-import { errorHandler } from "../middlewares/errorHandler.js";
-
-// Importing data models
-import Snippet from "../models/snippetModel.js";
-import Favourite from "../models/favouriteModel.js";
-
 
 // Creating a Get Snippets Controller Function
 export const getSnippets = async (req, res, next) => {
