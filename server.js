@@ -12,8 +12,9 @@ import { fileURLToPath } from "url";
 import dbConnect from "./server/database/dbConnection.js";
 
 // Importing the custom routes
-import mainRoute from "./server/routes/mainRoute.js";
-import authRoute from "./server/routes/authRoute.js";
+import mainRoute from "./server/routes/mainRoutes.js";
+import authRoute from "./server/routes/authRoutes.js";
+import snippetRoute from "./server/routes/snippetRoutes.js";
 
 // Importing custom utilities
 import {printAscii} from "./server/utils/printAsciiArt.js";
@@ -32,7 +33,7 @@ const app = express();
 app.use(express.json()); 							// Middleware to parse the JSON data
 app.use(express.urlencoded({ extended: false })); 	// Middleware to parse URL-encoded bodies
 app.use(morgan("dev"));								// Middleware to log the requests
-app.use(cookieParser()); 							// Middleware to parse the cookies
+app.use(cookieParser(process.env.COOKIE_SECRET)); 	// Middleware to parse the cookies
 app.use(session({									// Middleware to create the sessions
 	secret: process.env.SESSION_SECRET,
 	resave: false,
@@ -59,6 +60,7 @@ app.use("/scripts", express.static(path.join(__dirname, "client/public/scripts")
 app.use("/img", express.static(path.join(__dirname, "client/public/img")));
 
 // Setting up the custom routes
+app.use("/api/snippet", snippetRoute);
 app.use("/api/auth", authRoute);
 app.use("/", mainRoute);
 
